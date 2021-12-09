@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import UserSchema from "../models/user";
+import { UserModel } from "../models/user";
 
 export const FriendRequest = async (req: Request, res: Response): Promise<Response> => {
 
@@ -8,7 +8,7 @@ export const FriendRequest = async (req: Request, res: Response): Promise<Respon
         user_two_id
     } = req.body
 
-    UserSchema.requestFriend(user_one_id, user_two_id,);
+    UserModel.requestFriend(user_one_id, user_two_id,);
 
     return res.status(200).send({
         message: 'Friend request send it'
@@ -17,11 +17,7 @@ export const FriendRequest = async (req: Request, res: Response): Promise<Respon
 
 export const GetFriends = async (req:Request, res: Response) => {
 
-        const {  user_data } = req.body
-
-        console.group("Schema")
-        console.log(user_data)
-        console.groupEnd()
+      /*   const {  user_data } = req.body
 
         UserSchema.getFriends(user_data, {}, { }, {}, (err, friendShip) => {
             if(err) return res.status(400).send({ err })
@@ -29,7 +25,7 @@ export const GetFriends = async (req:Request, res: Response) => {
                 friendShip
             })
         })
-
+ */
         
 
 }

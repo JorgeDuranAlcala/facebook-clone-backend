@@ -14,7 +14,9 @@ export const Create_new_post = async (req: Request, res: Response): Promise<Resp
             New_post
         })
     } catch (error) {
-        return res.status(400).send({error: error.message})
+        if(error instanceof Error)
+            return res.status(400).send({error: error.message})
+        throw error
     }
 
 }
@@ -32,7 +34,9 @@ export const Update_post = async (req: Request, res: Response): Promise<Response
             Updated_post
         })
     } catch (error) {
-        return res.status(400).send({error: error.message})
+        if(error instanceof Error)
+            return res.status(400).send({error: error.message})
+        throw error
     }
 
 }
@@ -50,7 +54,9 @@ export const Delete_post = async (req: Request, res: Response): Promise<Response
         })
         
     } catch (error) {
-        return res.status(400).send({error: error.message})
+        if(error instanceof Error)
+            return res.status(400).send({error: error.message})
+        throw error
     }
 
 }
@@ -62,12 +68,14 @@ export const get_all_post = async (req: Request, res: Response): Promise<Respons
     
         const post_list = await Post.find()
        
-        return res.status(201).json({
+        return res.status(200).json({
             message: "Post list send it",
             post_list
         })
     } catch (error) {
-        return res.status(400).send({error: error.message})
+        if (error instanceof Error)
+            return res.status(400).send({error: error.message})
+        throw error
     }
 
 }
@@ -83,7 +91,9 @@ export const get_post_by_Id = async (req: Request, res: Response): Promise<Respo
             post
         })
     } catch (error) {
-        return res.status(400).send({error: error.message})
+        if(error instanceof Error)
+            return res.status(400).send({error: error.message})
+        throw error
     }
 
 }

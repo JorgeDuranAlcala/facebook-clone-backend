@@ -5,26 +5,26 @@ import CommentRouter from "./comments.route";
 import AuthRouter from "./auth.routes";
 import FriendsRouter from "./friends.routes";
 
-const postRouter = Router()
+const router = Router()
 
-postRouter.route('/posts')
+router.route('/posts')
 .get(PostController.get_all_post)
 
-postRouter.route('/post/:id')
+router.route('/post/:id')
 .put(PostController.Update_post)
 .get(PostController.get_post_by_Id)
 .delete(PostController.Delete_post)
 
-postRouter.route('/upload')
+router.route('/upload')
 .post(multer.single('image'), PostController.Create_new_post)
 
-postRouter.use('/post/:postId/comments', (req, res, next) => {
+router.use('/post/:postId/comments', (req, res, next) => {
     req.postId = req.params.postId
     next()
 } , CommentRouter)
 
-postRouter.use('/', AuthRouter)
+router.use('/auth', AuthRouter)
 
-postRouter.use('/friend', FriendsRouter)
+router.use('/friend', FriendsRouter)
 
-export default postRouter
+export default router

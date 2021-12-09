@@ -1,25 +1,26 @@
 import { Request, Response } from "express";
-import UserSchema from "../models/user";
+import JWT from "jsonwebtoken";
+import {createUser, validateUser} from "../actions/user-action";
+import dotenv from 'dotenv'
+dotenv.config()
 
 export const Register = async (req: Request, res: Response): Promise<Response> => {
 
     try {
-        const {
-            userImg,
-            username,
-            access_token,
-            facebookId
-        } = req.body;
 
-        const myuser = new UserSchema({ username, userImg, access_token, facebookId })
-        const New_user = await myuser.save()
-
-        return res.status(201).json({
-            message: "User registered Successfuly",
-            New_user
-        })
+        const New_user = await createUser(req.body)
+        const token = JWT.sign({ user: New_user }, process.env.JWT_SECRET as string)
+        return res
+                .status(201)
+                .cookie("token", token)
+                .json({
+                    message: "User registered Successfuly",
+                    New_user
+                })
     } catch (error) {
-        return res.status(400).send({error: error.message})
+        if(error instanceof Error)
+            return res.status(400).send({error: error.message})
+        throw error
     }
 
 }
@@ -27,19 +28,21 @@ export const Register = async (req: Request, res: Response): Promise<Response> =
 export const Login = async (req: Request, res: Response): Promise<Response> => {
 
     try {
-        /* const {
-            username,
-        } = req.body; */
-
-        /* const myuser = new User({ username })
-        const New_user = await myuser.save() */
-
-        return res.status(201).json({
-            message: "User logged Successfuly",
-            New_user: req.user
-        })
+        //const { username, password } = req.body
+        const user = await validateUser(req.body.username, req.body.password)
+        const token = JWT.sign({ user }, process.env.JWT_SECRET as string)
+        return res
+                .status(200)
+                .cookie("token", token)
+                .json({
+                    message: "User logged in",
+                    user,
+                    token
+                })
     } catch (error) {
-        return res.status(400).send({error: error.message})
+        if(error instanceof Error)
+            return res.status(400).send({error: error.message})
+        throw error
     }
 
 }

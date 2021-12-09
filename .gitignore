@@ -6,3 +6,9 @@ node_modules
 #uploads folder
 
 uploads
+
+# testing
+/coverage
+
+# environment
+.env

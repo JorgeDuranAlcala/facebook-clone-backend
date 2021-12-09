@@ -25,7 +25,9 @@ export const reply_Comment = async (req: Request, res: Response): Promise<Respon
         })
 
     } catch (error) {
-        return res.status(400).send({ message: error.message })
+        if(error instanceof Error)
+            return res.status(400).send({ message: error.message })
+        throw error
     }
 }
 
@@ -49,7 +51,9 @@ export const like_reply = async (req: Request, res: Response): Promise<Response>
             })
 
     } catch (error) {
-        return res.status(400).send({ message: error.message })
+        if(error instanceof Error)
+            return res.status(400).send({ message: error.message })
+        throw error
     }
 }
 
@@ -75,6 +79,7 @@ export const delete_reply = async (req: Request, res: Response): Promise<Respons
         })
 
     } catch (error) {
-        return res.status(400).send({ message: error.message})
-    }
+        if(error instanceof Error)
+            return res.status(400).send({ message: error.message})
+throw error        }
 }
