@@ -5,6 +5,16 @@ import CommentRouter from "./comments.route";
 import AuthRouter from "./auth.routes";
 import FriendsRouter from "./friends.routes";
 
+declare global {
+    namespace Express {
+        export interface Request {
+            postId?: string;
+            commentId?: string;
+            user_id?: string;
+        }
+    }
+}
+
 const router = Router()
 
 router.route('/posts')
@@ -25,6 +35,6 @@ router.use('/post/:postId/comments', (req, res, next) => {
 
 router.use('/auth', AuthRouter)
 
-router.use('/friend', FriendsRouter)
+router.use('/friends', FriendsRouter)
 
 export default router

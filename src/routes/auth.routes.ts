@@ -39,7 +39,6 @@ router.get('/success', (req, res) => {
 
 
 router.get('/profile', passport.authenticate("jwt", { session: false }) ,(req, res) => {
-        console.log(req.cookies)
         res
             .status(200)
             .send({

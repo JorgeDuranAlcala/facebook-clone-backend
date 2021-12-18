@@ -1,13 +1,10 @@
 import express, { Application } from 'express'
 import cors from 'cors'
 import router from './routes'
-import colors from 'colors'
 import path from 'path'
-import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import bodyParser from 'body-parser'
 import passport from "passport";
-import { IUser, UserModel as UserSchema } from "./models/user";
 // @ts-ignore
 import expressSession from "express-session";
 import { jwt_strategy } from './lib/passport'
@@ -23,32 +20,13 @@ export const app: Application = express()
 app.set('port', process.env.PORT || 3500)
 dotenv.config()
 
-
-// pasport 
-
-  /*   passport.serializeUser((user, done) => {
-        const my_user = user as IUser
-        done(null, my_user._id)
-    })
-
-    passport.deserializeUser(async (id, done) => {
-        try {
-            const user = await UserSchema.findById(id)
-            return done(null, user)
-
-        } catch (error) {
-            return done(error, null)
-        }
-    }) */
-
-
 // middlewares 
 
 app.use(
     CookieSession({
         name: 'user_session',
         keys: [`${process.env.COOKIE_KEY}`],
-        maxAge: 24 * 60 * 60 * 100
+        maxAge: 24 * 60 * 60 * 100,
     })
 )
 

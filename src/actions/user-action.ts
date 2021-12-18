@@ -21,3 +21,14 @@ export  async function validateUser(username: string, password: string): Promise
         throw error
     }
 }
+
+export  async function getUsersList(user_username: string): Promise<IUser[]> {
+    try {
+        const users = await UserModel.find({ username: {$ne: user_username}})
+        if(users.length === 0) throw new Error("No users found");
+        return users
+    } catch (error) {
+        throw error
+    }
+}
+

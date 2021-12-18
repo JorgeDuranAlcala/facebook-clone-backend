@@ -1,8 +1,14 @@
-import { Request, Response } from "express";
+import { CookieOptions, Request, Response } from "express";
 import JWT from "jsonwebtoken";
 import {createUser, validateUser} from "../actions/user-action";
 import dotenv from 'dotenv'
 dotenv.config()
+
+const cookieOpts: CookieOptions = {
+    httpOnly: true, 
+    secure: true,
+    sameSite: "none"
+}
 
 export const Register = async (req: Request, res: Response): Promise<Response> => {
 
@@ -12,10 +18,11 @@ export const Register = async (req: Request, res: Response): Promise<Response> =
         const token = JWT.sign({ user: New_user }, process.env.JWT_SECRET as string)
         return res
                 .status(201)
-                .cookie("token", token)
+                .cookie("token", token, cookieOpts)
                 .json({
                     message: "User registered Successfuly",
-                    New_user
+                    user: New_user,
+                    token
                 })
     } catch (error) {
         if(error instanceof Error)
@@ -33,7 +40,7 @@ export const Login = async (req: Request, res: Response): Promise<Response> => {
         const token = JWT.sign({ user }, process.env.JWT_SECRET as string)
         return res
                 .status(200)
-                .cookie("token", token)
+                .cookie("token", token, cookieOpts)
                 .json({
                     message: "User logged in",
                     user,
