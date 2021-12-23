@@ -51,6 +51,6 @@ app.use(`/${process.env['SUFIX_PATHNAME']}`, router )
 
 
 app.use('/uploads', express.static(path.resolve('uploads')));
-app.use('/public', express.static(path.join(__dirname, "public"));
+app.use('/public', express.static(path.join(__dirname, "public")));
 
 
