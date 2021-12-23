@@ -1,17 +1,18 @@
 
 # dependencies
 
-node_modules
+**/node_modules
 
 #uploads folder
 
-uploads
+**/uploads
 
 # testing
-/coverage
+**/coverage
 
 # environment
 .env
-env
 
-/src
+#build
+**/build
+

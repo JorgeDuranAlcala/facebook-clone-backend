@@ -40,5 +40,15 @@ describe('User actions', () => {
         expect(users.length).toEqual(2)
     })
 
+    it("Should return an Error if username is undefined", async () => {
+        try {
+            const currentUser = undefined
+            await getUsersList(currentUser)
+        } catch (error) {
+            if(!(error instanceof Error)) return;
+            expect(error.message).toMatch(/The username is undefined/i)
+        }
+    })
+
    
 })

@@ -22,8 +22,9 @@ export  async function validateUser(username: string, password: string): Promise
     }
 }
 
-export  async function getUsersList(user_username: string): Promise<IUser[]> {
+export  async function getUsersList(user_username?: string): Promise<IUser[]> {
     try {
+        if(!user_username) throw new Error("The username is undefined");
         const users = await UserModel.find({ username: {$ne: user_username}})
         if(users.length === 0) throw new Error("No users found");
         return users

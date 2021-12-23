@@ -88,6 +88,7 @@ router.get('/failure', (req, res) => {
     })
 })
 
+router.get('/userList', )
 router.post('/register', Register)
 router.post('/login', Login)
 

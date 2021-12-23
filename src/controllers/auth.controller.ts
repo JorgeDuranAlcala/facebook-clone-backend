@@ -1,13 +1,28 @@
 import { CookieOptions, Request, Response } from "express";
 import JWT from "jsonwebtoken";
-import {createUser, validateUser} from "../actions/user-action";
+import {createUser, getUsersList, validateUser} from "../actions/user-action";
 import dotenv from 'dotenv'
+import { IUser } from "src/models/user";
 dotenv.config()
 
 const cookieOpts: CookieOptions = {
     httpOnly: true, 
     secure: true,
     sameSite: "none"
+}
+
+export const userList = async (req: Request, res: Response): Promise<Response> => {
+    try {
+        const user = req.user as IUser
+        const users = await getUsersList(user.username)
+        return res
+            .status(200)
+            .send({users})
+    } catch (error) {
+        if(error instanceof Error)
+            return res.status(400).send({error: error.message})
+        throw error
+    }
 }
 
 export const Register = async (req: Request, res: Response): Promise<Response> => {
