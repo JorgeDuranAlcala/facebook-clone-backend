@@ -81,6 +81,10 @@ export async function acceptRequest(user_one: IUser, user_two: IUser) {
     }
 }
 
+
+/**
+ * Get an array of users friends
+ */
 export async function getFriendsList(user_id: string) {
     try {
         const user = await UserModel.findById(user_id);
