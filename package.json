@@ -7,7 +7,7 @@
     "node": "16.x"
   },
   "scripts": {
-    "start-prod": "npm run build && npm start",
+    "start-prod": "npm start",
     "start": "node build",
     "build": "tsc",
     "dev": "nodemon index.ts",
