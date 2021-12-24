@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "engines": {
-     "node": "16.x"
+    "node": "16.x"
   },
   "scripts": {
     "start-prod": "npm run build && npm start",
     "start": "node build",
-    "build": "tsc --project tsconfig.production.json",
+    "build": "tsc",
     "dev": "nodemon index.ts",
     "test": "jest",
     "test:watch": "npm run test -- --watchAll",
