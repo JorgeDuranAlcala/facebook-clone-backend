@@ -13,6 +13,14 @@ uploads
 # environment
 .env
 
+# tests
+__tests__
+__test__
+**/*.test.ts
+**/*.spec.ts
+**/*.test.js
+**/*.spec.js
+
 #build
 **/build
 
