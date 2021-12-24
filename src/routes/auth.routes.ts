@@ -2,7 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import AuthRoute from "../middlewares/auth";
 import { IUser } from "../models/user";
-import { Register, Login } from "../controllers/auth.controller";
+import { Register, Login, userList } from "../controllers/auth.controller";
 import auth from "../middlewares/auth";
 import JWT from 'jsonwebtoken'
 
@@ -88,7 +88,7 @@ router.get('/failure', (req, res) => {
     })
 })
 
-router.get('/userList', )
+router.get('/userList', passport.authenticate("jwt", {session: false}), userList)
 router.post('/register', Register)
 router.post('/login', Login)
 
