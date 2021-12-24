@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start-prod": "npm run build && npm start",
     "start": "node build",
-    "build": "tsc",
+    "build": "tsc -p",
     "dev": "nodemon index.ts",
     "test": "jest",
     "test:watch": "npm run test -- --watchAll",
